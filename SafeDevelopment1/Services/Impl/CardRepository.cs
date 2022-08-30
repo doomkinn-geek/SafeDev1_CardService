@@ -16,7 +16,13 @@ namespace CardService.Services.Impl
         }
         public string Create(Card data)
         {
-            throw new NotImplementedException();
+            var client = _context.Clients.FirstOrDefault(client => client.ClientId == data.ClientId);
+            if (client == null)
+                throw new Exception("Клиент не найден");
+
+            _context.Cards.Add(data);
+            _context.SaveChanges();
+            return data.CardId.ToString();
         }
 
         public int Delete(string id)

@@ -4,9 +4,21 @@ namespace CardService.Services.Impl
 {
     public class ClientRepository : IClientRepositoryService
     {
+        private readonly CardServiceDbContext _context;
+        private readonly ILogger<ClientRepository> _logger;
+
+        public ClientRepository(
+            ILogger<ClientRepository> logger,
+            CardServiceDbContext context)
+        {
+            _logger = logger;
+            _context = context;
+        }
         public int Create(Client data)
         {
-            throw new NotImplementedException();
+            _context.Clients.Add(data);
+            _context.SaveChanges();
+            return data.ClientId;
         }
 
         public int Delete(int id)
