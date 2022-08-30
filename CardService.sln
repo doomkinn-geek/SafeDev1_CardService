@@ -3,7 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32526.322
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CardService", "SafeDevelopment1\CardService.csproj", "{3826D754-C8B6-44FC-9819-1DE88BA9C222}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CardService", "SafeDevelopment1\CardService.csproj", "{3826D754-C8B6-44FC-9819-1DE88BA9C222}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CardService.Data", "CardService.Data\CardService.Data.csproj", "{14F05580-450F-4727-A50C-D170DFBD7DDD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Элементы решения", "Элементы решения", "{5F6EF6FB-CBB0-42C4-B42B-47F1B49FCCF7}"
+	ProjectSection(SolutionItems) = preProject
+		ef.read.txt = ef.read.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +22,10 @@ Global
 		{3826D754-C8B6-44FC-9819-1DE88BA9C222}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3826D754-C8B6-44FC-9819-1DE88BA9C222}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3826D754-C8B6-44FC-9819-1DE88BA9C222}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14F05580-450F-4727-A50C-D170DFBD7DDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14F05580-450F-4727-A50C-D170DFBD7DDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14F05580-450F-4727-A50C-D170DFBD7DDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14F05580-450F-4727-A50C-D170DFBD7DDD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

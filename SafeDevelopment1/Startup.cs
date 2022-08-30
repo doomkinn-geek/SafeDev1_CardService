@@ -1,6 +1,4 @@
-using CardStorageService.Data;
-using CardStorageService.Services;
-using CardStorageService.Services.Impl;
+using CardService.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpLogging;
@@ -31,7 +29,7 @@ namespace CardStorageService
         public void ConfigureServices(IServiceCollection services)
         {
 
-            #region Configure Options Services
+            /*#region Configure Options Services
 
             services.Configure<DatabaseOptions>(options =>
             {
@@ -41,7 +39,7 @@ namespace CardStorageService
             #endregion
 
             services.AddScoped<IClientRepositoryService, ClientRepository>();
-            services.AddScoped<ICardRepositoryService, CardRepository>();
+            services.AddScoped<ICardRepositoryService, CardRepository>();*/
 
             services.AddHttpLogging(logging =>
             {
@@ -55,7 +53,7 @@ namespace CardStorageService
 
             #region Configure EF DBContext Service (CardStorageService Database)
 
-            services.AddDbContext<CardStorageServiceDbContext>(options =>
+            services.AddDbContext<CardServiceDbContext>(options =>
             {
                 options.UseSqlServer(Configuration["Settings:DatabaseOptions:ConnectionString"]);
             });
