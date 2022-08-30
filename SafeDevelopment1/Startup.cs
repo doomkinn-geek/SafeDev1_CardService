@@ -1,4 +1,6 @@
 using CardService.Data;
+using CardService.Services;
+using CardService.Services.Impl;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpLogging;
@@ -27,19 +29,10 @@ namespace CardStorageService
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        {
-
-            /*#region Configure Options Services
-
-            services.Configure<DatabaseOptions>(options =>
-            {
-                Configuration.GetSection("Settings:DatabaseOptions").Bind(options);
-            });
-
-            #endregion
+        {           
 
             services.AddScoped<IClientRepositoryService, ClientRepository>();
-            services.AddScoped<ICardRepositoryService, CardRepository>();*/
+            services.AddScoped<ICardRepositoryService, CardRepository>();
 
             services.AddHttpLogging(logging =>
             {
@@ -51,7 +44,7 @@ namespace CardStorageService
                 logging.RequestHeaders.Add("X-Forwarded-For");
             });
 
-            #region Configure EF DBContext Service (CardStorageService Database)
+            #region Configure EF DBContext Service (CardService Database)
 
             services.AddDbContext<CardServiceDbContext>(options =>
             {
