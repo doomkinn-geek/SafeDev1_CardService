@@ -1,7 +1,10 @@
-﻿using CardService.Models.Requests;
+﻿using CardService.Models;
+using CardService.Models.Requests;
 using CardService.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Net.Http.Headers;
+using System.Net.Http.Headers;
 
 namespace CardService.Controllers
 {
@@ -28,6 +31,28 @@ namespace CardService.Controllers
                 Response.Headers.Add("X-Session-Token", authenticationResponse.SessionInfo.SessionToken);
             }
             return Ok(authenticationResponse);
+        }
+
+        [HttpGet]
+        [Route("session")]
+        [ProducesResponseType(typeof(SessionInfo), StatusCodes.Status200OK)]
+        public IActionResult GetSessionInfo()
+        {
+            var authorization = Request.Headers[HeaderNames.Authorization];            
+            if (AuthenticationHeaderValue.TryParse(authorization, out var headerValue))
+            {
+                var scheme = headerValue.Scheme; 
+                var sessionToken = headerValue.Parameter;
+                if (string.IsNullOrEmpty(sessionToken))
+                    return Unauthorized();
+
+                SessionInfo sessionInfo = _authenticateService.GetSessionInfo(sessionToken);
+                if (sessionInfo == null)
+                    return Unauthorized();
+
+                return Ok(sessionInfo);
+            }
+            return Unauthorized();
         }
     }
 }
