@@ -31,7 +31,40 @@ namespace CardService.Services.Impl
 
         public SessionInfo GetSessionInfo(string sessionToken)
         {
-            throw new System.NotImplementedException();
+            SessionInfo sessionInfo;
+
+            lock (_sessions)
+            {
+                _sessions.TryGetValue(sessionToken, out sessionInfo);
+            }
+
+            if (sessionInfo == null)
+            {
+                using IServiceScope scope = _serviceScopeFactory.CreateScope();
+                CardServiceDbContext context = scope.ServiceProvider.GetRequiredService<CardServiceDbContext>();
+
+                AccountSession session = context
+                        .AccountSessions
+                        .FirstOrDefault(item => item.SessionToken == sessionToken);
+
+                if (session == null)
+                    return null;
+
+                Account account = context.Accounts.FirstOrDefault(item => item.AccountId == session.AccountId);
+
+                sessionInfo = GetSessionInfo(account, session);
+
+                if (sessionInfo != null)
+                {
+                    lock (_sessions)
+                    {
+                        _sessions[sessionToken] = sessionInfo;
+                    }
+                }
+
+            }
+
+            return sessionInfo;
         }
 
         public AuthenticationResponse Login(AuthenticationRequest authenticationRequest)
