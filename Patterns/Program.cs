@@ -23,7 +23,7 @@
             finalWorkComponent1.DoWork();
             #endregion
 
-            Console.ReadKey();
+            Console.ReadLine();
         }
     }
 }
