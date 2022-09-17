@@ -2,6 +2,8 @@
 using CardService.Models;
 using CardService.Models.Requests;
 using CardService.Services;
+using FluentValidation;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,19 +17,26 @@ namespace CardService.Controllers
     {
         private readonly ICardRepositoryService _cardRepositoryService;
         private readonly ILogger<CardController> _logger;
+        private readonly IValidator<CreateCardRequest> _cardRequestValidator;
 
         public CardController(
             ILogger<CardController> logger,
-            ICardRepositoryService cardRepositoryService)
+            ICardRepositoryService cardRepositoryService,
+            IValidator<CreateCardRequest> cardRequestValidator)
         {
             _logger = logger;
             _cardRepositoryService = cardRepositoryService;
+            _cardRequestValidator = cardRequestValidator;
         }
 
         [HttpPost("create")]
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IDictionary<string, string[]>), StatusCodes.Status400BadRequest)]
         public IActionResult Create([FromBody] CreateCardRequest request)
         {
+            ValidationResult validationResult = _cardRequestValidator.Validate(request);
+            if (!validationResult.IsValid)
+                return BadRequest(validationResult.ToDictionary());
             try
             {
                 var cardId = _cardRepositoryService.Create(new Card

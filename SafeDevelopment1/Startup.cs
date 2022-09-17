@@ -1,7 +1,10 @@
 using CardService;
 using CardService.Data;
+using CardService.Models.Requests;
+using CardService.Models.Validators;
 using CardService.Services;
 using CardService.Services.Impl;
+using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -34,6 +37,10 @@ namespace CardStorageService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IValidator<AuthenticationRequest>, AuthenticationRequestValidator>();
+            services.AddScoped<IValidator<CreateCardRequest>, CreateCardRequestValidator>();
+            services.AddScoped<IValidator<CreateClientRequest>, CreateClientRequestValidator>();
+
             services.Configure<DatabaseOptions>(options =>
             {
                 Configuration.GetSection("Settings:DatabaseOptions").Bind(options);

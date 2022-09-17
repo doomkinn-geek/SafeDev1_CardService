@@ -23,6 +23,17 @@
             finalWorkComponent1.DoWork();
             #endregion
 
+            #region MailMessage
+            GlobalSettings settings = LazySingleton.Instance;
+            var message = MailMessageBuilder
+                .Create()
+                .From("test@yandex.ru")
+                .To("to_sample@yandex.ru")
+                .Subject("test subject")
+                .Body("content")
+                .Build();
+            #endregion
+
             Console.ReadLine();
         }
     }

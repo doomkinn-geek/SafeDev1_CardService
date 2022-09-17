@@ -1,6 +1,8 @@
 ﻿using CardService.Models;
 using CardService.Models.Requests;
 using CardService.Services;
+using FluentValidation;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Net.Http.Headers;
@@ -14,17 +16,25 @@ namespace CardService.Controllers
     public class AuthenticateController : ControllerBase
     {
         private readonly IAuthenticateService _authenticateService;
-        public AuthenticateController(IAuthenticateService authenticateService)
+        private readonly IValidator<AuthenticationRequest> _authenticationRequestValidator;
+        public AuthenticateController(IAuthenticateService authenticateService,
+             IValidator<AuthenticationRequest> authenticationRequestValidator)
         {
             _authenticateService = authenticateService;
+            _authenticationRequestValidator = authenticationRequestValidator;
         }
 
         [AllowAnonymous]
         [HttpPost]
         [Route("login")]
+        [ProducesResponseType(typeof(IDictionary<string, string[]>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(AuthenticationResponse), StatusCodes.Status200OK)]
         public IActionResult Login([FromBody] AuthenticationRequest authenticationRequest)
         {
+            ValidationResult validationResult = _authenticationRequestValidator.Validate(authenticationRequest);
+            if (!validationResult.IsValid)
+                return BadRequest(validationResult.ToDictionary());
+
             AuthenticationResponse authenticationResponse = _authenticateService.Login(authenticationRequest);
             if (authenticationResponse.Status == Models.AuthenticationStatus.Success)
             {
