@@ -1,5 +1,7 @@
+using AutoMapper;
 using CardService;
 using CardService.Data;
+using CardService.Mappings;
 using CardService.Models.Requests;
 using CardService.Models.Validators;
 using CardService.Services;
@@ -40,6 +42,10 @@ namespace CardStorageService
             services.AddScoped<IValidator<AuthenticationRequest>, AuthenticationRequestValidator>();
             services.AddScoped<IValidator<CreateCardRequest>, CreateCardRequestValidator>();
             services.AddScoped<IValidator<CreateClientRequest>, CreateClientRequestValidator>();
+
+            var mapperConfiguration = new MapperConfiguration(mp => mp.AddProfile(new MappingProfile()));
+            var mapper = mapperConfiguration.CreateMapper();
+            services.AddSingleton(mapper);
 
             services.Configure<DatabaseOptions>(options =>
             {

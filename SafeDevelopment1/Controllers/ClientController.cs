@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CardService.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ClientController : ControllerBase

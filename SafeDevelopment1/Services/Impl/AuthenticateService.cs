@@ -1,4 +1,5 @@
-﻿using CardService.Data;
+﻿using AutoMapper;
+using CardService.Data;
 using CardService.Models;
 using CardService.Models.Requests;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,17 +17,18 @@ namespace CardService.Services.Impl
     {        
 
         private readonly IServiceScopeFactory _serviceScopeFactory;
-
-
+        private readonly IMapper _mapper;
 
         private readonly Dictionary<string, SessionInfo> _sessions =
             new Dictionary<string, SessionInfo>();
 
         public const string SecretKey = "jEw5g8qc+2B?F)G-";
 
-        public AuthenticateService(IServiceScopeFactory serviceScopeFactory)
+        public AuthenticateService(IServiceScopeFactory serviceScopeFactory,
+            IMapper mapper)
         {
             _serviceScopeFactory = serviceScopeFactory;
+            _mapper = mapper;
         }
 
         public SessionInfo GetSessionInfo(string sessionToken)
@@ -125,19 +127,21 @@ namespace CardService.Services.Impl
 
         private SessionInfo GetSessionInfo(Account account, AccountSession accountSession)
         {
+            var accountDTO = _mapper.Map<AccountDto>(account);
             return new SessionInfo
             {
                 SessionId = accountSession.SessionId,
                 SessionToken = accountSession.SessionToken,
-                Account = new AccountDto
-                {
-                    AccountId = account.AccountId,
-                    EMail = account.EMail,
-                    FirstName = account.FirstName,
-                    LastName = account.LastName,
-                    SecondName = account.SecondName,
-                    Locked = account.Locked
-                }
+                accountDTO
+                //Account = new AccountDto
+                //{
+                //    AccountId = account.AccountId,
+                //    EMail = account.EMail,
+                //    FirstName = account.FirstName,
+                //    LastName = account.LastName,
+                //    SecondName = account.SecondName,
+                //    Locked = account.Locked
+                //}
             };
         }
 
