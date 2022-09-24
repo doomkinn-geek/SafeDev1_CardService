@@ -18,6 +18,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Account.Helper", "Account.H
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Patterns", "Patterns\Patterns.csproj", "{06660DDF-FA76-44C5-98C1-8E4E2860DCEE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CardService.Client", "CardService.Client\CardService.Client.csproj", "{49F7039F-4289-4D48-A6AA-55210276E9DE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +46,10 @@ Global
 		{06660DDF-FA76-44C5-98C1-8E4E2860DCEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{06660DDF-FA76-44C5-98C1-8E4E2860DCEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{06660DDF-FA76-44C5-98C1-8E4E2860DCEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49F7039F-4289-4D48-A6AA-55210276E9DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49F7039F-4289-4D48-A6AA-55210276E9DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49F7039F-4289-4D48-A6AA-55210276E9DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49F7039F-4289-4D48-A6AA-55210276E9DE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
