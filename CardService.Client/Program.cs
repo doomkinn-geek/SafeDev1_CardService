@@ -24,7 +24,7 @@ namespace CardService.Client
                 });
 
                 Console.WriteLine($"ClientId: {response.ClientId}; ErrCode: {response.ErrorCode}; ErrMessage: {response.ErrorMessage}");
-
+                Console.ReadLine();
             }
         }
     }

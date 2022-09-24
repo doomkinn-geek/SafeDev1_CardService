@@ -139,7 +139,12 @@ namespace CardStorageService
             }
 
             app.UseRouting();
-            app.UseHttpLogging();
+            app.UseWhen(ctx => ctx.Request.ContentType != "application/grpc", // Microsoft ÏÎÎÁÅÙÀË â .NET 7 èñïðàâèòü.
+                builder =>
+                {
+                    builder.UseHttpLogging();
+                });
+            //app.UseHttpLogging();
 
             app.UseAuthentication();
             app.UseAuthorization();
