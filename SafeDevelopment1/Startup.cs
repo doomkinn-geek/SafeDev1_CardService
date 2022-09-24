@@ -6,6 +6,7 @@ using CardService.Models.Requests;
 using CardService.Models.Validators;
 using CardService.Services;
 using CardService.Services.Impl;
+using CardStorage.Services.Impl;
 using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -39,6 +40,8 @@ namespace CardStorageService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddGrpc();
+
             services.AddScoped<IValidator<AuthenticationRequest>, AuthenticationRequestValidator>();
             services.AddScoped<IValidator<CreateCardRequest>, CreateCardRequestValidator>();
             services.AddScoped<IValidator<CreateClientRequest>, CreateClientRequestValidator>();
@@ -143,6 +146,7 @@ namespace CardStorageService
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapGrpcService<ClientService>();
                 endpoints.MapControllers();
             });
         }
