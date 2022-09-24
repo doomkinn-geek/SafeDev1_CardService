@@ -132,7 +132,7 @@ namespace CardService.Services.Impl
             {
                 SessionId = accountSession.SessionId,
                 SessionToken = accountSession.SessionToken,
-                accountDTO
+                Account = accountDTO
                 //Account = new AccountDto
                 //{
                 //    AccountId = account.AccountId,
